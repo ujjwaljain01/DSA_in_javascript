@@ -1,4 +1,4 @@
-// ********* Creating Node ***********
+// *~*~*~*~*~*~*~* Creating Node *~*~*~*~*~*~*~*
 
 class Node{
     constructor(data,next=null){
