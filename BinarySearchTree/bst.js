@@ -22,7 +22,7 @@ class BinarySearchTree{
         }
         //if not then calling a recursive function for insertion
         else{
-            insertNode(this.root,newNode)
+            this.insertNode(this.root,newNode)
         }
     }
     //recursive function for insertion
@@ -84,16 +84,16 @@ class BinarySearchTree{
                 return node.right
             }
             else if(node.right===null){
-            return node.left
+                return node.left
             }
             //case3: if node have both child
             else{
                 //finding replacement for node by inorder successor or inorder predecessor methods
-                let tempNode=minFind(node.right) //inorder successor
-                //let tempNode=maxFind(node.left)  inorder predecessor
+                let tempNode=this.minFind(node.right) //inorder successor
+                //let tempNode=this.maxFind(node.left)  inorder predecessor
                 node.key=tempNode.key
                 //deleting the node which is replacing the node value
-                this.deleteNode(node.right,tempNode.key)
+                node.right=this.deleteNode(node.right,tempNode.key)
             }
         }
         return node
@@ -119,43 +119,58 @@ class BinarySearchTree{
 
     //preorder:- root,left,right
     preOrderTraversal(){
-        let result=[]
-        preorder(this.root,result)
+        const result=[]
+        this.preOrder(this.root,result)
         return result
     }
     //recursive function for preorder
-    preOrder(root,result){
-        while(node!==null){
-            result.push(root.key)
-            this.preOrder(root.left,result)
-            this.preOrder(root.right,result)
+    preOrder(node,result){
+        if(node!==null){
+            result.push(node.key)
+            this.preOrder(node.left,result)
+            this.preOrder(node.right,result)
         }
     }
 
     //inorder:- left,root,right
     inOrderTraversal(){
-        let result=[]
-        inOrder(this.root,result)
+        const result=[]
+        this.inOrder(this.root,result)
         return result
     }
     //recursive function for inorder
     inOrder(node,result){
+        if(node!==null){
         this.inOrder(node.left,result)
-        result.push(root.key)
+        result.push(node.key)
         this.inOrder(node.right,result)
+        }
     }
 
     //postorder:- left,right,root
     postOrderTraversal(){
-        let result=[]
-        postOrder(this.root,result)
+        const result=[]
+        this.postOrder(this.root,result)
         return result
     }
 
     //recursive function for postorder
     postOrder(node,result){
+        if(node!==null){
         this.postOrder(node.left,result)
         this.postOrder(node.right,result)
-        result.push(root.key)
+        result.push(node.key)
+        }
     }
 }
+let bst = new BinarySearchTree()
+bst.Insertion(25)
+bst.Insertion(18)
+bst.Insertion(13)
+bst.Insertion(21)
+bst.Insertion(27)
+bst.Insertion(29)
+console.log(`The Post order of BSt is-`,bst.postOrderTraversal());
+console.log(`The Pre order of BSt is-`,bst.preOrderTraversal());
+bst.Deletion(25)
+console.log(bst.inOrderTraversal());
